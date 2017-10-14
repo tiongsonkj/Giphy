@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Giphy!</title>
+</head>
+<body>
+	<div class="container">
+	
+		<!-- searches submitted will be here -->
+		<div id="search-view"></div>
+
+		<form id="search-form">
+	      <label for="search-input">Add an animal</label><br>
+	      <input type="text" id="search-input"><br>
+
+	      <!-- Button triggers new animal to be added -->
+	      <input id="add-search" type="submit" value="submit">
+
+	      <!-- temporary button that will search and 
+	      		trigger the AJAX call -->
+	      <input id="find-gif" type="submit" value="Gif Search">
+    	</form>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+
+			// array that the search inputs will go into
+			var topics = [];
+
+			// make each class "button" be a click function
+			// BUT FOR NOW WE WILL START WITH THE NEW INPUT DIV BUTTON
+			$("#find-gif").on("click", function() {
+			// $(".button").on("click", function()
+
+		        // event.preventDefault() can be used to prevent an event's default behavior.
+		        // Here, it prevents the submit button from trying to submit a form when clicked
+		        event.preventDefault();
+
+		        // grab the value from the search input
+		        var search = $("#search-input").val();
+
+		        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + search + "&limit=5";
+		        
+		        // use ajax to get the object of the API
+		        $.ajax({
+		        	url: queryURL,
+		        	method: "GET"
+		        }).done(function(response) {
+		        	console.log(response);
+		        });
+
+			});
+
+			function createButtons() {
+
+		        // Deleting the search buttons prior to adding new movie buttons
+		        // (this is necessary otherwise we will have repeat buttons)
+		        $("#search-view").empty();
+
+				// for each element in the array
+				for (i in topics) {
+
+					// create new button 
+					var newBtn = $("<button>");
+
+					// add class to each new button
+					newBtn.addClass("button");
+
+					// add text to each button which will be the element of the array
+					newBtn.text(topics[i]);
+
+					// add data attribute??????
+					newBtn.attr("data-name", topics[i]);
+
+					// append the button to HTML (searchview div)
+					$("#search-view").append(newBtn);
+				}
+			};
+
+			// create function for the submit button to submit the new value into the blank array
+			$("#add-search").on("click", function() {
+				//stops the form from submitting and refreshing the page
+        		event.preventDefault();
+
+        		// push the value from the search into the array
+        		topics.push($("#search-input").val());
+
+        		// calling the function that will create the buttons when pushing the searches into the array
+        		createButtons();
+			});
+			
+		</script>
+	</div>
+</body>
+</html>
