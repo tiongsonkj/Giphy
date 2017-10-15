@@ -12,13 +12,12 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
+
 	<style type="text/css">
 		.button {
-			color: red;
+			margin: 10px;
 		}	
-
 	</style>
-
 
 	<div class="container">
 	
@@ -35,7 +34,7 @@
 
 			<div class="col-4">
 				<form id="search-form">
-			      <label for="search-input">Add an animal</label><br>
+			      <label for="search-input">Add a TV show!</label><br>
 			      <input type="text" id="search-input"><br>
 
 			      <!-- Button triggers new animal to be added -->
@@ -71,7 +70,7 @@
 				var newBtn = $("<button>");
 
 				// add class to each new button
-				newBtn.addClass("button");
+				newBtn.addClass("button btn btn-success btn-sm");
 
 				// add text to each button which will be the element of the array
 				newBtn.text(topics[i]);
