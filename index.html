@@ -10,6 +10,9 @@
 		<!-- searches submitted will be here -->
 		<div id="search-view"></div>
 
+		<!-- the gifs will display in this div -->
+		<div id="gif-view"></div>
+
 		<form id="search-form">
 	      <label for="search-input">Add an animal</label><br>
 	      <input type="text" id="search-input"><br>
@@ -39,7 +42,7 @@
 		        // grab the value from the search input
 		        var search = $("#search-input").val();
 
-		        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + search + "&limit=5";
+		        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tYvCvL8Po7UmiKNyyyK2gFknGgQSisvh&q=" + search + "&limit=5";
 		        
 		        // use ajax to get the object of the API
 		        $.ajax({
@@ -47,6 +50,21 @@
 		        	method: "GET"
 		        }).done(function(response) {
 		        	console.log(response);
+		        	console.log(response.data[0].images.fixed_height_small.url);
+
+		        	// creating a div to hold the gif
+		        	var gifDiv = $("<div class='gif'>");
+
+		        	var gifURL = response.data[0].images.fixed_height_small.url;
+
+		        	// creating an element to hold the image
+		        	var image = $("<img>").attr("src", gifURL);
+
+		        	// appending image to the gifDiv
+		        	gifDiv.append(image);
+
+		        	// displaying the gifDiv to the gif-view div in html
+		        	$("#gif-view").html(gifDiv);
 		        });
 
 			});
