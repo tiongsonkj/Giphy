@@ -3,115 +3,148 @@
 <head>
 	<meta charset="utf-8">
 	<title>Giphy!</title>
+
+	<!-- BOOTSTRAP -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 </head>
 <body>
+	<style type="text/css">
+		.button {
+			color: red;
+		}	
+
+	</style>
+
+
 	<div class="container">
 	
-		<!-- searches submitted will be here -->
-		<div id="search-view"></div>
+		<div class="row">
+			<!-- searches submitted will be here -->
+			<div id="search-view"></div>
+		</div>
 
-		<!-- the gifs will display in this div -->
-		<div id="gif-view"></div>
+		<div class="row">
+			<div class="col-8">
+				<!-- the gifs will display in this div -->
+				<div id="gif-view"></div>
+			</div>
 
-		<form id="search-form">
-	      <label for="search-input">Add an animal</label><br>
-	      <input type="text" id="search-input"><br>
+			<div class="col-4">
+				<form id="search-form">
+			      <label for="search-input">Add an animal</label><br>
+			      <input type="text" id="search-input"><br>
 
-	      <!-- Button triggers new animal to be added -->
-	      <input id="add-search" type="submit" value="submit">
+			      <!-- Button triggers new animal to be added -->
+			      <input id="add-search" type="submit" value="submit">
 
-	      <!-- temporary button that will search and 
-	      		trigger the AJAX call -->
-	      <input id="find-gif" type="submit" value="Gif Search">
-    	</form>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script type="text/javascript">
-
-			// array that the search inputs will go into
-			var topics = [];
-
-			// make each class "button" be a click function
-			// BUT FOR NOW WE WILL START WITH THE NEW INPUT DIV BUTTON
-			$("#find-gif").on("click", function() {
-			// $(".button").on("click", function()
-
-		        // event.preventDefault() can be used to prevent an event's default behavior.
-		        // Here, it prevents the submit button from trying to submit a form when clicked
-		        event.preventDefault();
-
-		        // grab the value from the search input
-		        var search = $("#search-input").val();
-
-		        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tYvCvL8Po7UmiKNyyyK2gFknGgQSisvh&q=" + search + "&limit=10";
-		        
-		        // use ajax to get the object of the API
-		        $.ajax({
-		        	url: queryURL,
-		        	method: "GET"
-		        }).done(function(response) {
-
-		        	// clear the gif view so that the gifs won't pile up on each other
-		        	$("#gif-view").empty();
-
-		        	// for loop to print out 5 images instead of just one
-		        	for (var i = 0; i < 10; i++) {
-			        	// creating a div to hold the gif
-			        	var gifDiv = $("<div class='gif'>");
-
-			        	var gifURL = response.data[i].images.fixed_height_small.url;
-
-			        	// creating an element to hold the image
-			        	var image = $("<img>").attr("src", gifURL);
-
-			        	// appending image to the gifDiv
-			        	gifDiv.append(image);
-
-			        	// prepending each gifDiv to the gif-view div in html
-			        	$("#gif-view").prepend(gifDiv);
-			        }
-		        });
-
-			});
-
-			function createButtons() {
-
-		        // Deleting the search buttons prior to adding new movie buttons
-		        // (this is necessary otherwise we will have repeat buttons)
-		        $("#search-view").empty();
-
-				// for each element in the array
-				for (i in topics) {
-
-					// create new button 
-					var newBtn = $("<button>");
-
-					// add class to each new button
-					newBtn.addClass("button");
-
-					// add text to each button which will be the element of the array
-					newBtn.text(topics[i]);
-
-					// add data attribute??????
-					newBtn.attr("data-name", topics[i]);
-
-					// append the button to HTML (searchview div)
-					$("#search-view").append(newBtn);
-				}
-			};
-
-			// create function for the submit button to submit the new value into the blank array
-			$("#add-search").on("click", function() {
-				//stops the form from submitting and refreshing the page
-        		event.preventDefault();
-
-        		// push the value from the search into the array
-        		topics.push($("#search-input").val());
-
-        		// calling the function that will create the buttons when pushing the searches into the array
-        		createButtons();
-			});
-			
-		</script>
+			      <!-- temporary button that will search and 
+			      		trigger the AJAX call -->
+			      <input id="find-gif" type="submit" value="Gif Search">
+	    		</form>
+	    	</div>
+	    </div>
 	</div>
+
+
+	<!-- JQUERY -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+
+		// array that the search inputs will go into
+		var topics = [];
+
+		function createButtons() {
+
+	        // Deleting the search buttons prior to adding new movie buttons
+	        // (this is necessary otherwise we will have repeat buttons)
+	        $("#search-view").empty();
+
+			// for each element in the array
+			for (i in topics) {
+
+				// create new button 
+				var newBtn = $("<button>");
+
+				// add class to each new button
+				newBtn.addClass("button");
+
+				// add text to each button which will be the element of the array
+				newBtn.text(topics[i]);
+
+				// add data attribute??????
+				newBtn.attr("data-name", topics[i]);
+
+				// append the button to HTML (searchview div)
+				$("#search-view").append(newBtn);
+
+				// call function that allows the gifs to stop and go
+			}
+		};
+
+		// create function for the submit button to submit the new value into the blank array
+		$("#add-search").on("click", function() {
+			//stops the form from submitting and refreshing the page
+    		event.preventDefault();
+
+    		// push the value from the search into the array
+    		topics.push($("#search-input").val());
+
+    		// calling the function that will create the buttons when pushing the searches into the array
+    		createButtons();
+		});
+		
+		// make each class "button" be a click function
+		// BUT FOR NOW WE WILL START WITH THE NEW INPUT DIV BUTTON
+		$("#find-gif").on("click", function() {
+		// $(".button").on("click", function()
+
+	        // event.preventDefault() can be used to prevent an event's default behavior.
+	        // Here, it prevents the submit button from trying to submit a form when clicked
+	        event.preventDefault();
+
+	        // grab the value from the search input
+	        var search = $("#search-input").val();
+
+	        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tYvCvL8Po7UmiKNyyyK2gFknGgQSisvh&q=" + search + "&limit=10";
+	        
+	        // use ajax to get the object of the API
+	        $.ajax({
+	        	url: queryURL,
+	        	method: "GET"
+	        }).done(function(response) {
+	        	console.log(response);
+
+	        	// clear the gif view so that the gifs won't pile up on each other
+	        	$("#gif-view").empty();
+
+	        	// for loop to print out 5 images instead of just one
+	        	for (var i = 0; i < 10; i++) {
+		        	// creating a div to hold the gif
+		        	var gifDiv = $("<div class='gif'>");
+
+		        	var gifRating = response.data[i].rating;
+
+		        	// create text for rating of the gif
+		        	var rating = $("<p>").text("Rating: " + gifRating)
+
+		        	gifDiv.append(rating);
+
+		        	var gifURL = response.data[i].images.fixed_height_small.url;
+
+		        	// creating an element to hold the image
+		        	var image = $("<img>").attr("src", gifURL);
+
+		        	// appending image to the gifDiv
+		        	gifDiv.append(image);
+
+		        	// prepending each gifDiv to the gif-view div in html
+		        	$("#gif-view").prepend(gifDiv);
+		        }
+	        });
+		});
+	</script>
 </body>
 </html>
