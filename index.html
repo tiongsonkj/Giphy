@@ -49,8 +49,9 @@
 		        	url: queryURL,
 		        	method: "GET"
 		        }).done(function(response) {
-		        	console.log(response);
-		        	console.log(response.data[0].images.fixed_height_small.url);
+
+		        	// clear the gif view so that the gifs won't pile up on each other
+		        	$("#gif-view").empty();
 
 		        	// for loop to print out 5 images instead of just one
 		        	for (var i = 0; i < 10; i++) {
@@ -65,10 +66,8 @@
 			        	// appending image to the gifDiv
 			        	gifDiv.append(image);
 
-			        	// displaying the gifDiv to the gif-view div in html
+			        	// prepending each gifDiv to the gif-view div in html
 			        	$("#gif-view").prepend(gifDiv);
-
-			        	console.log(response.data[i].images.fixed_height_small.url);
 			        }
 		        });
 
