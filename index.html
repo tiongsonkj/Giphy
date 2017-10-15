@@ -120,7 +120,7 @@
 	        	// clear the gif view so that the gifs won't pile up on each other
 	        	$("#gif-view").empty();
 
-	        	// for loop to print out 5 images instead of just one
+	        	// for loop to print out 10 images instead of just one
 	        	for (var i = 0; i < 10; i++) {
 		        	// creating a div to hold the gif
 		        	var gifDiv = $("<div class='gif'>");
@@ -136,8 +136,17 @@
 		        	// setting the variable to the object property
 		        	var gifURL = response.data[i].images.fixed_height_small.url;
 
+		        	// url for still image
+		        	var gifURLStill = response.data[i].images.fixed_height_small_still.url;
+
 		        	// creating an element to hold the image
-		        	var image = $("<img>").attr("src", gifURL);
+		        	var image = $("<img>").attr("src", gifURLStill);
+
+		        	// attributing data-state="still" to each image
+		        	image.attr("data-state", "still");
+
+		        	// added class gifImage so that the pause function can specifically be for this class
+		        	image.addClass("gifImage");
 
 		        	// appending image to the gifDiv
 		        	gifDiv.append(image);
@@ -146,6 +155,23 @@
 		        	$("#gif-view").prepend(gifDiv);
 		        }
 	        });
+		});
+
+		$(".gifImage").on("click", function() {
+
+			// The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+      		var state = $(this).attr("data-state");
+
+	    	// If the clicked image's state is still, update its src attribute to what its data-animate value is.
+	    	// Then, set the image's data-state to animate
+	    	// Else set src to the data-still value
+	      	if (state === "still") {
+	        	$(this).attr("src", gifURL);
+	        	$(this).attr("data-state", "animate");
+	      	} else {
+	        	$(this).attr("src", gifURLStill);
+	        	$(this).attr("data-state", "still");
+	      }     		
 		});
 	</script>
 </body>
