@@ -70,7 +70,7 @@
 				var newBtn = $("<button>");
 
 				// add class to each new button
-				newBtn.addClass("button btn btn-success btn-sm");
+				newBtn.addClass("gifButton btn btn-success btn-sm");
 
 				// add text to each button which will be the element of the array
 				newBtn.text(topics[i]);
@@ -99,7 +99,7 @@
 		
 		// make each class "button" be a click function
 		// BUT FOR NOW WE WILL START WITH THE NEW INPUT DIV BUTTON
-		$("#find-gif").on("click", function() {
+		$(document.body).on("click", ".gifButton", function() {
 		// $(".button").on("click", function()
 
 	        // event.preventDefault() can be used to prevent an event's default behavior, prevents the submit button from trying to submit a form when clicked
@@ -157,7 +157,8 @@
 	        });
 		});
 
-		$(".gifImage").on("click", function() {
+		$(document.body).on("click", ".gifImage", function() {
+			
 
 			// The attr jQuery method allows us to get or set the value of any attribute on our HTML element
       		var state = $(this).attr("data-state");
