@@ -19,7 +19,7 @@ function createButtons() {
 		// add text to each button which will be the element of the array
 		newBtn.text(shows[i]);
 
-		// add data attribute??????
+		// add data attribute
 		newBtn.attr("data-name", shows[i]);
 
 		// append the button to HTML (searchview div)
@@ -48,6 +48,7 @@ function getGifs() {
     // grab the value from the search input
     var search = $(this).attr("data-name");
 
+    // put url into a variable queryURL
     var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=tYvCvL8Po7UmiKNyyyK2gFknGgQSisvh&q=" + search + "&limit=10";
     
     // use ajax to get the object of the API
