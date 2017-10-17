@@ -1,9 +1,6 @@
 // initial array of tv shows
 var shows = ["The Simpsons", "Game of Thrones", "The Office", "That 70s Show"];
 
-// array that the search inputs will go into
-var topics = [];
-
 function createButtons() {
 
     // Deleting the search buttons prior to adding new movie buttons
