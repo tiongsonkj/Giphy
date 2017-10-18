@@ -64,7 +64,7 @@ function getGifs() {
     	// for loop to print out 10 images instead of just one
     	for (var i = 0; i < 10; i++) {
         	// creating a div to hold the gif
-        	var gifDiv = $("<div class='gif col-4 float-left'>");
+        	var gifDiv = $("<div class='gif float-left'>");
 
         	// setting the rating of the gif into the variable gifRating
         	var gifRating = response.data[i].rating;
